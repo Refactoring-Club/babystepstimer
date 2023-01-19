@@ -65,23 +65,27 @@ function startTimer() {
 
       let remainingTime: string = getRemainingTimeCaption(elapsedTime);
 
-      if (_lastRemainingTime !== remainingTime) {
-        if (remainingTime == "00:10") {
-          playSound("2166__suburban-grilla__bowl-struck.wav");
-        } else if (remainingTime == "00:00") {
-          playSound("32304__acclivity__shipsbell.wav");
-          _bodyBackgroundColor = BackgroundColorFailed;
-        }
-
-        document.body.innerHTML = CreateTimerHtml(
-          remainingTime,
-          _bodyBackgroundColor,
-          true
-        );
-        _lastRemainingTime = remainingTime;
-      }
+      getLastRemainingTime(remainingTime);
     }
   }, 10);
+}
+
+function getLastRemainingTime(remainingTime: string) {
+  if (_lastRemainingTime !== remainingTime) {
+    if (remainingTime == "00:10") {
+      playSound("2166__suburban-grilla__bowl-struck.wav");
+    } else if (remainingTime == "00:00") {
+      playSound("32304__acclivity__shipsbell.wav");
+      _bodyBackgroundColor = BackgroundColorFailed;
+    }
+
+    document.body.innerHTML = CreateTimerHtml(
+      remainingTime,
+      _bodyBackgroundColor,
+      true
+    );
+    _lastRemainingTime = remainingTime;
+  }
 }
 
 function getRemainingTimeCaption(elapsedTime: number): string {

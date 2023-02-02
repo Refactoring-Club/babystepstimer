@@ -89,17 +89,11 @@ function getLastRemainingTime(remainingTime: string) {
 }
 
 function getRemainingTimeCaption(elapsedTime: number): string {
-  let remainingTime: Date = new Date(SecondsInCycle * 1000 - elapsedTime);
-  var minute: string | number = remainingTime.getMinutes();
-  var second: string | number = remainingTime.getSeconds();
-  if (minute < 10) {
-    minute = "0" + minute;
-  }
-  if (second < 10) {
-    second = "0" + second;
-  }
+  const remainingTime: Date = new Date(SecondsInCycle * 1000 - elapsedTime);
+  const minute = remainingTime.getMinutes();
+  const second = remainingTime.getSeconds();
 
-  return "" + minute + ":" + second;
+  return `0${minute}:${second < 10 ? `0${second}` : second}`;
 }
 
 function renderControls(running: boolean): string {

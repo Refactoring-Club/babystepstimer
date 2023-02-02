@@ -68,13 +68,7 @@ function getRemainingTimeCaption(elapsedTime) {
     var remainingTime = new Date(SecondsInCycle * 1000 - elapsedTime);
     var minute = remainingTime.getMinutes();
     var second = remainingTime.getSeconds();
-    if (minute < 10) {
-        minute = "0" + minute;
-    }
-    if (second < 10) {
-        second = "0" + second;
-    }
-    return "" + minute + ":" + second;
+    return "0" + minute + ":" + (second < 10 ? "0" + second : second);
 }
 exports.getRemainingTimeCaption = getRemainingTimeCaption;
 function renderControls(running) {

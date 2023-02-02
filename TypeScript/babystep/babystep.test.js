@@ -22,4 +22,9 @@ describe('getRemainingTimeCaption', function () {
             expect(getRemainingTimeCaption(120000)).toBe("00:00");
         });
     });
+    describe('when elapsed time is 30,000', function () {
+        it('returns the string "01:30"', function () {
+            expect(getRemainingTimeCaption(30000)).toBe("01:30");
+        });
+    });
 });

@@ -102,30 +102,27 @@ function getRemainingTimeCaption(elapsedTime: number): string {
   return "" + minute + ":" + second;
 }
 
+function renderControls(running: boolean): string {
+  if (running) {
+    return `<a style="color: #555555;" href="javascript:command(\'stop\');">Stop</a> ` +
+      `<a style="color: #555555;" href="javascript:command(\'reset\');">Reset</a>`;
+  }
+  return '<a style="color: #555555;" href="javascript:command(\'start\');">Start</a> ';
+
+}
+
 function CreateTimerHtml(
   timerText: string,
   bodyColor: string,
   running: boolean
 ): string {
-  let timerHtml: string =
-    '<div style="border: 3px solid #555555; background: ' +
-    bodyColor +
-    '; margin: 0; padding: 0;">' +
-    '<h1 style="text-align: center; font-size: 30px; color: magenta;">' +
-    timerText +
-    "</h1>" +
-    '<div style="text-align: center">';
-  if (running) {
-    timerHtml +=
-      '<a style="color: #555555;" href="javascript:command(\'stop\');">Stop</a> ' +
-      '<a style="color: #555555;" href="javascript:command(\'reset\');">Reset</a> ';
-  } else {
-    timerHtml +=
-      '<a style="color: #555555;" href="javascript:command(\'start\');">Start</a> ';
-  }
-  timerHtml +=
-    '<a style="color: #555555;" href="javascript:command(\'quit\');">Quit</a> ';
-  timerHtml += "</div></div>";
+  const timerHtml: string =
+    `<div style="border: 3px solid #555555; background: ${bodyColor}; margin: 0; padding: 0;">
+<h1 style="text-align: center; font-size: 30px; color: magenta;">${timerText}</h1>
+<div style="text-align: center">
+${renderControls(running)}
+<a style="color: #555555;" href="javascript:command(\'quit\');">Quit</a>
+</div></div>`;
   return timerHtml;
 }
 

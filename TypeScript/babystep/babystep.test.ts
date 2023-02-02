@@ -1,6 +1,6 @@
-const { CreateTimerHtml } = require("./babystep");
+const { CreateTimerHtml, getLastRemainingTime } = require("./babystep");
 
-describe("createHtml", () => {
+describe("CreateTimerHtml", () => {
   test("html for not running timer", () => {
     const htmlPart =
       /<a style="color: #\d+;" href="javascript:command\('start'\);">Start<\/a>/;
@@ -10,7 +10,7 @@ describe("createHtml", () => {
   test("html for running timer", () => {
     const htmlPart =
       '<a style="color: #555555;" href="javascript:command(\'stop\');">Stop</a> ' +
-      '<a style="color: #555555;" href="javascript:command(\'reset\');">Reset</a> ';
+      '<a style="color: #555555;" href="javascript:command(\'reset\');">Reset</a>';
     expect(CreateTimerHtml("I'm a timer", "magenta", true)).toContain(htmlPart);
   });
 });

@@ -76,9 +76,11 @@ function getRemainingTimeCaption(elapsedTime) {
     }
     return "" + minute + ":" + second;
 }
+exports.getRemainingTimeCaption = getRemainingTimeCaption;
 function renderControls(running) {
     if (running) {
-        return "<a style=\"color: #555555;\" href=\"javascript:command('stop');\">Stop</a> <a style=\"color: #555555;\" href=\"javascript:command('reset');\">Reset</a>";
+        return "<a style=\"color: #555555;\" href=\"javascript:command('stop');\">Stop</a> " +
+            "<a style=\"color: #555555;\" href=\"javascript:command('reset');\">Reset</a>";
     }
     return '<a style="color: #555555;" href="javascript:command(\'start\');">Start</a> ';
 }

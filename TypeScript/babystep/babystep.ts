@@ -65,27 +65,23 @@ function startTimer() {
 
       let remainingTime: string = getRemainingTimeCaption(elapsedTime);
 
-      getLastRemainingTime(remainingTime);
+      if (_lastRemainingTime !== remainingTime) {
+        if (remainingTime == "00:10") {
+          playSound("2166__suburban-grilla__bowl-struck.wav");
+        } else if (remainingTime == "00:00") {
+          playSound("32304__acclivity__shipsbell.wav");
+          _bodyBackgroundColor = BackgroundColorFailed;
+        }
+
+        document.body.innerHTML = CreateTimerHtml(
+          remainingTime,
+          _bodyBackgroundColor,
+          true
+        );
+        _lastRemainingTime = remainingTime;
+      }
     }
   }, 10);
-}
-
-function getLastRemainingTime(remainingTime: string) {
-  if (_lastRemainingTime !== remainingTime) {
-    if (remainingTime == "00:10") {
-      playSound("2166__suburban-grilla__bowl-struck.wav");
-    } else if (remainingTime == "00:00") {
-      playSound("32304__acclivity__shipsbell.wav");
-      _bodyBackgroundColor = BackgroundColorFailed;
-    }
-
-    document.body.innerHTML = CreateTimerHtml(
-      remainingTime,
-      _bodyBackgroundColor,
-      true
-    );
-    _lastRemainingTime = remainingTime;
-  }
 }
 
 function getRemainingTimeCaption(elapsedTime: number): string {
@@ -102,7 +98,6 @@ function renderControls(running: boolean): string {
       `<a style="color: #555555;" href="javascript:command(\'reset\');">Reset</a>`;
   }
   return '<a style="color: #555555;" href="javascript:command(\'start\');">Start</a> ';
-
 }
 
 function CreateTimerHtml(

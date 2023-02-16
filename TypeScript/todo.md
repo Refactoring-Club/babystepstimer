@@ -9,3 +9,4 @@
 - [ ] simplify/extract logic from startTimer
 - [ ] lots of branches in command around AbsoluteUri
 - [ ] extract AbsoluteUri somehow??
+- [ ] Make Links Buttons (Click Handlers)

@@ -1,0 +1,11 @@
+- [ ] Clean up Lets
+- [ ] Lots of mutation
+- [ ] console logs wtf??
+- [ ] naming
+  - [ ] command???
+- [ ] Separation of concerns
+  - [ ] display vs data vs controls
+  -
+- [ ] simplify/extract logic from startTimer
+- [ ] lots of branches in command around AbsoluteUri
+- [ ] extract AbsoluteUri somehow??

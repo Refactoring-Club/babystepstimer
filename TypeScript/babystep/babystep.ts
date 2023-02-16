@@ -9,25 +9,23 @@ let _lastRemainingTime: string;
 let _bodyBackgroundColor: string = BackgroundColorNeutral;
 let _threadTimer: NodeJS.Timer;
 
-document.body.innerHTML = CreateTimerHtml(
+document.body.innerHTML = render(
   getRemainingTimeCaption(0),
   BackgroundColorNeutral,
   false
 );
 
-function command(arg: string, startCommandHandler = startTimer): void {
+function command(
+  arg: string,
+  startCommandHandler = startTimer,
+  stopCommandHandler = stopTimer
+): void {
   let args = { Url: { AbsoluteUri: `command://${arg}/` } };
   console.log("called", arg, args.Url.AbsoluteUri);
   if (args.Url.AbsoluteUri == "command://start/") {
     startCommandHandler();
   } else if (args.Url.AbsoluteUri == "command://stop/") {
-    _timerRunning = false;
-    clearInterval(_threadTimer);
-    document.body.innerHTML = CreateTimerHtml(
-      getRemainingTimeCaption(0),
-      BackgroundColorNeutral,
-      false
-    );
+    stopCommandHandler();
   } else if (args.Url.AbsoluteUri == "command://reset/") {
     _currentCycleStartTime = Date.now();
     _bodyBackgroundColor = BackgroundColorPassed;
@@ -37,8 +35,18 @@ function command(arg: string, startCommandHandler = startTimer): void {
   }
 }
 
+function stopTimer() {
+  _timerRunning = false;
+  clearInterval(_threadTimer);
+  document.body.innerHTML = render(
+    getRemainingTimeCaption(0),
+    BackgroundColorNeutral,
+    false
+  );
+}
+
 function startTimer() {
-  document.body.innerHTML = CreateTimerHtml(
+  document.body.innerHTML = render(
     getRemainingTimeCaption(0),
     BackgroundColorNeutral,
     true
@@ -73,7 +81,7 @@ function startTimer() {
           _bodyBackgroundColor = BackgroundColorFailed;
         }
 
-        document.body.innerHTML = CreateTimerHtml(
+        document.body.innerHTML = render(
           remainingTime,
           _bodyBackgroundColor,
           true
@@ -102,7 +110,7 @@ function renderControls(running: boolean): string {
   return '<a style="color: #555555;" href="javascript:command(\'start\');">Start</a> ';
 }
 
-function CreateTimerHtml(
+function render(
   timerText: string,
   bodyColor: string,
   running: boolean
@@ -124,4 +132,4 @@ function playSound(url: string): void {
   audio.play();
 }
 
-export { CreateTimerHtml, getRemainingTimeCaption, startTimer, command };
+export { render, getRemainingTimeCaption, startTimer, command };

@@ -1,18 +1,18 @@
-const { CreateTimerHtml, getRemainingTimeCaption } = require("./babystep");
+const { render, getRemainingTimeCaption } = require("./babystep");
 const babystep = require("./babystep");
 
 describe("CreateTimerHtml", () => {
   test("html for not running timer", () => {
     const htmlPart =
       /<a style="color: #\d+;" href="javascript:command\('start'\);">Start<\/a>/;
-    expect(CreateTimerHtml("I'm a timer", "magenta", false)).toMatch(htmlPart);
+    expect(render("I'm a timer", "magenta", false)).toMatch(htmlPart);
   });
 
   test("html for running timer", () => {
     const htmlPart =
       '<a style="color: #555555;" href="javascript:command(\'stop\');">Stop</a> ' +
       '<a style="color: #555555;" href="javascript:command(\'reset\');">Reset</a>';
-    expect(CreateTimerHtml("I'm a timer", "magenta", true)).toContain(htmlPart);
+    expect(render("I'm a timer", "magenta", true)).toContain(htmlPart);
   });
 });
 
@@ -43,5 +43,13 @@ describe("command", () => {
     babystep.command("start", mockStartTimer);
 
     expect(mockStartTimer).toHaveBeenCalled();
+  });
+
+  it("calls render when stop is passed to command", () => {
+    const mockRender = jest.fn();
+
+    babystep.command("stop", jest.fn(), mockRender);
+
+    expect(mockRender).toHaveBeenCalled();
   });
 });

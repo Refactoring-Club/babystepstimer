@@ -18,7 +18,8 @@ document.body.innerHTML = render(
 function command(
   arg: string,
   startCommandHandler = startTimer,
-  stopCommandHandler = stopTimer
+  stopCommandHandler = stopTimer,
+  resetCommandHandler = resetTimer
 ): void {
   let args = { Url: { AbsoluteUri: `command://${arg}/` } };
   console.log("called", arg, args.Url.AbsoluteUri);
@@ -27,12 +28,16 @@ function command(
   } else if (args.Url.AbsoluteUri == "command://stop/") {
     stopCommandHandler();
   } else if (args.Url.AbsoluteUri == "command://reset/") {
-    _currentCycleStartTime = Date.now();
-    _bodyBackgroundColor = BackgroundColorPassed;
+    resetCommandHandler();
   } else if (args.Url.AbsoluteUri == "command://quit/") {
     document.body.innerHTML = "";
     clearInterval(_threadTimer);
   }
+}
+
+function resetTimer() {
+  _currentCycleStartTime = Date.now();
+  _bodyBackgroundColor = BackgroundColorPassed;
 }
 
 function stopTimer() {

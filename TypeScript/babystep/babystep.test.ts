@@ -52,4 +52,12 @@ describe("command", () => {
 
     expect(mockRender).toHaveBeenCalled();
   });
+
+  it("calls resetTimer when reset is passed to command", () => {
+    const mockResetTimer = jest.fn();
+
+    babystep.command("reset", jest.fn(), jest.fn(), mockResetTimer);
+
+    expect(mockResetTimer).toHaveBeenCalled();
+  });
 });

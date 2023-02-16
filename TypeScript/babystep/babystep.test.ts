@@ -60,4 +60,12 @@ describe("command", () => {
 
     expect(mockResetTimer).toHaveBeenCalled();
   });
+
+  it("calls quitTimer when quit is passed to command", () => {
+    const mockQuitTimer = jest.fn();
+
+    babystep.command("quit", jest.fn(), jest.fn(), jest.fn(), mockQuitTimer);
+
+    expect(mockQuitTimer).toHaveBeenCalled();
+  });
 });

@@ -40,9 +40,14 @@ describe("command", function () {
         babystep.command("stop", jest.fn(), mockRender);
         expect(mockRender).toHaveBeenCalled();
     });
-    it("calls render when stop is passed to command", function () {
+    it("calls resetTimer when reset is passed to command", function () {
         var mockResetTimer = jest.fn();
         babystep.command("reset", jest.fn(), jest.fn(), mockResetTimer);
         expect(mockResetTimer).toHaveBeenCalled();
+    });
+    it("calls quitTimer when quit is passed to command", function () {
+        var mockQuitTimer = jest.fn();
+        babystep.command("quit", jest.fn(), jest.fn(), jest.fn(), mockQuitTimer);
+        expect(mockQuitTimer).toHaveBeenCalled();
     });
 });

@@ -10,10 +10,11 @@ var _lastRemainingTime;
 var _bodyBackgroundColor = BackgroundColorNeutral;
 var _threadTimer;
 document.body.innerHTML = render(getRemainingTimeCaption(0), BackgroundColorNeutral, false);
-function command(arg, startCommandHandler, stopCommandHandler, resetCommandHandler) {
+function command(arg, startCommandHandler, stopCommandHandler, resetCommandHandler, quitCommandHandler) {
     if (startCommandHandler === void 0) { startCommandHandler = startTimer; }
     if (stopCommandHandler === void 0) { stopCommandHandler = stopTimer; }
     if (resetCommandHandler === void 0) { resetCommandHandler = resetTimer; }
+    if (quitCommandHandler === void 0) { quitCommandHandler = quitTimer; }
     var args = { Url: { AbsoluteUri: "command://" + arg + "/" } };
     console.log("called", arg, args.Url.AbsoluteUri);
     if (args.Url.AbsoluteUri == "command://start/") {
@@ -26,11 +27,14 @@ function command(arg, startCommandHandler, stopCommandHandler, resetCommandHandl
         resetCommandHandler();
     }
     else if (args.Url.AbsoluteUri == "command://quit/") {
-        document.body.innerHTML = "";
-        clearInterval(_threadTimer);
+        quitCommandHandler();
     }
 }
 exports.command = command;
+function quitTimer() {
+    document.body.innerHTML = "";
+    clearInterval(_threadTimer);
+}
 function resetTimer() {
     _currentCycleStartTime = Date.now();
     _bodyBackgroundColor = BackgroundColorPassed;

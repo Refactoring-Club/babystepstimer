@@ -19,7 +19,8 @@ function command(
   arg: string,
   startCommandHandler = startTimer,
   stopCommandHandler = stopTimer,
-  resetCommandHandler = resetTimer
+  resetCommandHandler = resetTimer,
+  quitCommandHandler = quitTimer
 ): void {
   let args = { Url: { AbsoluteUri: `command://${arg}/` } };
   console.log("called", arg, args.Url.AbsoluteUri);
@@ -30,9 +31,13 @@ function command(
   } else if (args.Url.AbsoluteUri == "command://reset/") {
     resetCommandHandler();
   } else if (args.Url.AbsoluteUri == "command://quit/") {
-    document.body.innerHTML = "";
-    clearInterval(_threadTimer);
+    quitCommandHandler();
   }
+}
+
+function quitTimer() {
+  document.body.innerHTML = "";
+  clearInterval(_threadTimer);
 }
 
 function resetTimer() {

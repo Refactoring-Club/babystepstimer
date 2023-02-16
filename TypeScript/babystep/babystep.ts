@@ -15,11 +15,11 @@ document.body.innerHTML = CreateTimerHtml(
   false
 );
 
-function command(arg: string): void {
+function command(arg: string, startCommandHandler = startTimer): void {
   let args = { Url: { AbsoluteUri: `command://${arg}/` } };
   console.log("called", arg, args.Url.AbsoluteUri);
   if (args.Url.AbsoluteUri == "command://start/") {
-    startTimer();
+    startCommandHandler();
   } else if (args.Url.AbsoluteUri == "command://stop/") {
     _timerRunning = false;
     clearInterval(_threadTimer);
@@ -94,8 +94,10 @@ function getRemainingTimeCaption(elapsedTime: number): string {
 
 function renderControls(running: boolean): string {
   if (running) {
-    return `<a style="color: #555555;" href="javascript:command(\'stop\');">Stop</a> ` +
-      `<a style="color: #555555;" href="javascript:command(\'reset\');">Reset</a>`;
+    return (
+      `<a style="color: #555555;" href="javascript:command(\'stop\');">Stop</a> ` +
+      `<a style="color: #555555;" href="javascript:command(\'reset\');">Reset</a>`
+    );
   }
   return '<a style="color: #555555;" href="javascript:command(\'start\');">Start</a> ';
 }
@@ -105,8 +107,7 @@ function CreateTimerHtml(
   bodyColor: string,
   running: boolean
 ): string {
-  const timerHtml: string =
-    `<div style="border: 3px solid #555555; background: ${bodyColor}; margin: 0; padding: 0;">
+  const timerHtml: string = `<div style="border: 3px solid #555555; background: ${bodyColor}; margin: 0; padding: 0;">
 <h1 style="text-align: center; font-size: 30px; color: magenta;">${timerText}</h1>
 <div style="text-align: center">
 ${renderControls(running)}
@@ -123,4 +124,4 @@ function playSound(url: string): void {
   audio.play();
 }
 
-export { CreateTimerHtml, getRemainingTimeCaption };
+export { CreateTimerHtml, getRemainingTimeCaption, startTimer, command };
